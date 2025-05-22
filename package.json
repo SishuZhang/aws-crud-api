@@ -1,0 +1,25 @@
+{
+  "name": "aws-crud-api",
+  "version": "1.0.0",
+  "description": "Serverless CRUD API using AWS Lambda and DynamoDB",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "deploy": "serverless deploy",
+    "deploy:dev": "serverless deploy --stage dev",
+    "deploy:stg": "serverless deploy --stage stg",
+    "deploy:prod": "serverless deploy --stage prod",
+    "start": "serverless offline"
+  },
+  "dependencies": {
+    "@aws-sdk/client-dynamodb": "^3.0.0",
+    "@aws-sdk/lib-dynamodb": "^3.0.0",
+    "uuid": "^9.0.0"
+  },
+  "devDependencies": {
+    "jest": "^29.0.0",
+    "serverless": "^3.0.0",
+    "serverless-offline": "^12.0.0",
+    "serverless-dotenv-plugin": "^4.0.0"
+  }
+} 
