@@ -1,38 +1,49 @@
 const AWS = require('aws-sdk');
 const { v4: uuidv4 } = require('uuid');
-const { generateTrackingNumber } = require('../utils/tracking');
 
 const dynamoDB = new AWS.DynamoDB.DocumentClient();
 const TABLE_NAME = process.env.DYNAMODB_TABLE;
 
-const ORDER_STATUS = {
-  PENDING: 'PENDING',
-  PROCESSING: 'PROCESSING',
-  SHIPPED: 'SHIPPED',
-  DELIVERED: 'DELIVERED',
-  CANCELLED: 'CANCELLED'
+const generateTrackingNumber = () => {
+  const random = Math.random().toString(36).substring(2, 6).toUpperCase();
+  return `TRK-${random}-${random}-${random}`;
 };
 
-module.exports.handler = async (event) => {
-  try {
-    const timestamp = new Date().getTime();
-    const data = JSON.parse(event.body);
-    const id = uuidv4();
-    const trackingNumber = generateTrackingNumber();
+const validateOrderData = (data) => {
+  const requiredFields = ['customerName', 'items', 'shippingAddress'];
+  const missingFields = requiredFields.filter(field => !data[field]);
+  
+  if (missingFields.length > 0) {
+    throw new Error(`Missing required fields: ${missingFields.join(', ')}`);
+  }
 
-    const params = {
-      TableName: TABLE_NAME,
-      Item: {
-        id,
-        trackingNumber,
-        status: ORDER_STATUS.PENDING,
-        createdAt: timestamp,
-        updatedAt: timestamp,
-        ...data
-      }
+  if (!Array.isArray(data.items) || data.items.length === 0) {
+    throw new Error('Items must be a non-empty array');
+  }
+};
+
+exports.handler = async (event) => {
+  try {
+    const data = JSON.parse(event.body);
+    validateOrderData(data);
+    
+    const timestamp = new Date().getTime();
+
+    const order = {
+      id: uuidv4(),
+      customerName: data.customerName,
+      items: data.items,
+      shippingAddress: data.shippingAddress,
+      status: 'PENDING',
+      trackingNumber: generateTrackingNumber(),
+      createdAt: timestamp,
+      updatedAt: timestamp
     };
 
-    await dynamoDB.put(params).promise();
+    await dynamoDB.put({
+      TableName: TABLE_NAME,
+      Item: order
+    }).promise();
 
     return {
       statusCode: 201,
@@ -42,15 +53,13 @@ module.exports.handler = async (event) => {
       },
       body: JSON.stringify({
         message: 'Order created successfully',
-        orderId: id,
-        trackingNumber,
-        status: ORDER_STATUS.PENDING
+        ...order
       })
     };
   } catch (error) {
     console.error('Error creating order:', error);
     return {
-      statusCode: 500,
+      statusCode: error.message.includes('Missing required fields') ? 400 : 500,
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
