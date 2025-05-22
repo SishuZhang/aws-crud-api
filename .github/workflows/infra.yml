@@ -3,9 +3,9 @@ name: Infrastructure Deployment
 on:
   push:
     branches:
+      - dev
+      - stg
       - main
-      - develop
-      - feature/*
   workflow_dispatch:
     inputs:
       action:
