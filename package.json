@@ -34,5 +34,8 @@
       "**/__tests__/**/*.js",
       "**/?(*.)+(spec|test).js"
     ]
-  }
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
