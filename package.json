@@ -1,25 +1,38 @@
 {
   "name": "aws-crud-api",
   "version": "1.0.0",
-  "description": "Serverless CRUD API using AWS Lambda and DynamoDB",
+  "description": "AWS CRUD API with Lambda and DynamoDB",
   "main": "index.js",
   "scripts": {
+    "build": "npm install",
     "test": "jest",
+    "lint": "eslint .",
     "deploy": "serverless deploy",
-    "deploy:dev": "serverless deploy --stage dev",
-    "deploy:stg": "serverless deploy --stage stg",
-    "deploy:prod": "serverless deploy --stage prod",
-    "start": "serverless offline"
+    "remove": "serverless remove",
+    "offline": "serverless offline"
   },
   "dependencies": {
-    "@aws-sdk/client-dynamodb": "^3.0.0",
-    "@aws-sdk/lib-dynamodb": "^3.0.0",
-    "uuid": "^9.0.0"
+    "aws-sdk": "^2.1550.0",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
-    "jest": "^29.0.0",
-    "serverless": "^3.0.0",
-    "serverless-offline": "^12.0.0",
-    "serverless-dotenv-plugin": "^4.0.0"
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.11.24",
+    "eslint": "^8.57.0",
+    "jest": "^29.7.0",
+    "serverless": "^3.38.0",
+    "serverless-dotenv-plugin": "^6.0.0",
+    "serverless-offline": "^13.9.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coverageDirectory": "./coverage",
+    "testMatch": [
+      "**/__tests__/**/*.js",
+      "**/?(*.)+(spec|test).js"
+    ]
   }
-} 
+}

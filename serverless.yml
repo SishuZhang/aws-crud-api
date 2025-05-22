@@ -10,6 +10,20 @@ provider:
   environment:
     NODE_ENV: ${self:provider.stage}
     DYNAMODB_TABLE: ${self:service}-${self:provider.stage}
+  httpApi:
+    cors:
+      allowedOrigins:
+        - '*'
+      allowedHeaders:
+        - Content-Type
+        - Authorization
+      allowedMethods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - OPTIONS
+      maxAge: 3600
   iam:
     role:
       statements:
@@ -43,7 +57,6 @@ functions:
       - httpApi:
           path: /items
           method: post
-          cors: true
 
   getItem:
     handler: src/handlers/get.handler
@@ -51,7 +64,6 @@ functions:
       - httpApi:
           path: /items/{id}
           method: get
-          cors: true
 
   listItems:
     handler: src/handlers/list.handler
@@ -59,7 +71,6 @@ functions:
       - httpApi:
           path: /items
           method: get
-          cors: true
 
   updateItem:
     handler: src/handlers/update.handler
@@ -67,7 +78,6 @@ functions:
       - httpApi:
           path: /items/{id}
           method: put
-          cors: true
 
   deleteItem:
     handler: src/handlers/delete.handler
@@ -75,7 +85,6 @@ functions:
       - httpApi:
           path: /items/{id}
           method: delete
-          cors: true
 
 resources:
   Resources:
@@ -94,64 +103,6 @@ resources:
           StreamViewType: NEW_AND_OLD_IMAGES
         PointInTimeRecoverySpecification:
           PointInTimeRecoveryEnabled: true
-
-    ApiGatewayRestApi:
-      Type: AWS::ApiGateway::RestApi
-      Properties:
-        Name: ${self:service}-api-${self:provider.stage}
-        CorsConfiguration:
-          AllowOrigins:
-            - '*'
-          AllowMethods:
-            - GET
-            - POST
-            - PUT
-            - DELETE
-            - OPTIONS
-          AllowHeaders:
-            - Content-Type
-            - Authorization
-          MaxAge: 3600
-
-    ApiGatewayResource:
-      Type: AWS::ApiGateway::Resource
-      Properties:
-        RestApiId: !Ref ApiGatewayRestApi
-        ParentId: !GetAtt ApiGatewayRestApi.RootResourceId
-        PathPart: items
-
-    ApiGatewayMethod:
-      Type: AWS::ApiGateway::Method
-      Properties:
-        RestApiId: !Ref ApiGatewayRestApi
-        ResourceId: !Ref ApiGatewayResource
-        HttpMethod: ANY
-        AuthorizationType: NONE
-        Integration:
-          Type: AWS_PROXY
-          IntegrationHttpMethod: POST
-          Uri: !Sub arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/${createItem.Arn}/invocations
-
-    ApiGatewayDeployment:
-      Type: AWS::ApiGateway::Deployment
-      Properties:
-        RestApiId: !Ref ApiGatewayRestApi
-        StageName: ${self:provider.stage}
-
-    ApiGatewayStage:
-      Type: AWS::ApiGateway::Stage
-      Properties:
-        RestApiId: !Ref ApiGatewayRestApi
-        DeploymentId: !Ref ApiGatewayDeployment
-        StageName: ${self:provider.stage}
-
-    ApiGatewayPermission:
-      Type: AWS::Lambda::Permission
-      Properties:
-        Action: lambda:InvokeFunction
-        FunctionName: !Ref createItem
-        Principal: apigateway.amazonaws.com
-        SourceArn: !Sub arn:aws:execute-api:${self:provider.region}:*:${ApiGatewayRestApi}/*/*/*
 
     CloudWatchLogGroup:
       Type: AWS::Logs::LogGroup
