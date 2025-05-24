@@ -9,7 +9,8 @@ provider:
   region: ${opt:region, 'us-east-2'}
   environment:
     NODE_ENV: ${self:provider.stage}
-    DYNAMODB_TABLE: ${self:service}-${self:provider.stage}
+    ORDERS_TABLE: ${self:service}-${self:provider.stage}-orders
+    PRODUCTS_TABLE: ${self:service}-${self:provider.stage}-products
   httpApi:
     cors:
       allowedOrigins:
@@ -35,90 +36,90 @@ provider:
             - dynamodb:PutItem
             - dynamodb:UpdateItem
             - dynamodb:DeleteItem
-          Resource: 
-            - "arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
+          Resource:
+            - "arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ORDERS_TABLE}"
+            - "arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.PRODUCTS_TABLE}"
         - Effect: Allow
           Action:
             - logs:CreateLogGroup
             - logs:CreateLogStream
             - logs:PutLogEvents
-          Resource: 
+          Resource:
             - "arn:aws:logs:${self:provider.region}:*:log-group:/aws/lambda/*"
         - Effect: Allow
           Action:
             - apigateway:*
-          Resource: 
+          Resource:
             - "arn:aws:apigateway:${self:provider.region}::/*"
 
 functions:
-  createItem:
+  createOrder:
     handler: src/handlers/create.handler
     events:
       - httpApi:
-          path: /items
+          path: /orders
           method: post
 
-  getItem:
+  getOrder:
     handler: src/handlers/get.handler
     events:
       - httpApi:
-          path: /items/{id}
+          path: /orders/{orderId}
           method: get
 
-  listItems:
+  listOrders:
     handler: src/handlers/list.handler
     events:
       - httpApi:
-          path: /items
+          path: /orders
           method: get
 
-  updateItem:
+  updateOrder:
     handler: src/handlers/update.handler
     events:
       - httpApi:
-          path: /items/{id}
+          path: /orders/{orderId}
           method: put
 
-  deleteItem:
+  deleteOrder:
     handler: src/handlers/delete.handler
     events:
       - httpApi:
-          path: /items/{id}
+          path: /orders/{orderId}
           method: delete
 
-  updateStatus:
-    handler: src/handlers/updateStatus.handler
-    events:
-      - httpApi:
-          path: /items/{id}/status
-          method: patch
+  initializeProducts:
+    handler: src/handlers/initializeProducts.handler
 
 resources:
   Resources:
-    ItemsTable:
+    OrdersTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: ${self:provider.environment.DYNAMODB_TABLE}
+        TableName: ${self:provider.environment.ORDERS_TABLE}
         AttributeDefinitions:
           - AttributeName: id
-            AttributeType: S
-          - AttributeName: trackingNumber
             AttributeType: S
         KeySchema:
           - AttributeName: id
             KeyType: HASH
-        GlobalSecondaryIndexes:
-          - IndexName: TrackingNumberIndex
-            KeySchema:
-              - AttributeName: trackingNumber
-                KeyType: HASH
-            Projection:
-              ProjectionType: ALL
         BillingMode: PAY_PER_REQUEST
         StreamSpecification:
           StreamViewType: NEW_AND_OLD_IMAGES
         PointInTimeRecoverySpecification:
           PointInTimeRecoveryEnabled: true
+
+    ProductsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ${self:provider.environment.PRODUCTS_TABLE}
+        AttributeDefinitions:
+          - AttributeName: productName
+            AttributeType: S
+        KeySchema:
+          - AttributeName: productName
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
 
     CloudWatchLogGroup:
       Type: AWS::Logs::LogGroup

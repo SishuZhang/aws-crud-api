@@ -8,3 +8,7 @@ Improve the business scenario - add price and validation to align on real life s
 Manage customer orders instead of items
 getItems -> get Orders by status
 update status -> use parameters instead of sending a json body
+
+##TODO-2
+Add unit and integration tests
+create compelete README with steps

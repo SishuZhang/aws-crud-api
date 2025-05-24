@@ -1,13 +1,13 @@
 const AWS = require('aws-sdk');
 
 const dynamoDB = new AWS.DynamoDB.DocumentClient();
-const TABLE_NAME = process.env.DYNAMODB_TABLE;
+const ORDERS_TABLE = process.env.ORDERS_TABLE;
 
 exports.handler = async (event) => {
   try {
-    const { id } = event.pathParameters;
+    const { orderId } = event.pathParameters;
 
-    if (!id) {
+    if (!orderId) {
       return {
         statusCode: 400,
         headers: {
@@ -22,8 +22,8 @@ exports.handler = async (event) => {
 
     // Check if order exists
     const existingOrder = await dynamoDB.get({
-      TableName: TABLE_NAME,
-      Key: { id }
+      TableName: ORDERS_TABLE,
+      Key: { id: orderId }
     }).promise();
 
     if (!existingOrder.Item) {
@@ -40,8 +40,8 @@ exports.handler = async (event) => {
     }
 
     await dynamoDB.delete({
-      TableName: TABLE_NAME,
-      Key: { id }
+      TableName: ORDERS_TABLE,
+      Key: { id: orderId }
     }).promise();
 
     return {

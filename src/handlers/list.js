@@ -1,12 +1,12 @@
 const AWS = require('aws-sdk');
 
 const dynamoDB = new AWS.DynamoDB.DocumentClient();
-const TABLE_NAME = process.env.DYNAMODB_TABLE;
+const ORDERS_TABLE = process.env.ORDERS_TABLE;
 
 const handler = async (event) => {
   try {
     const params = {
-      TableName: TABLE_NAME
+      TableName: ORDERS_TABLE
     };
 
     // Handle pagination if limit is provided

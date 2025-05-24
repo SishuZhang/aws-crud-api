@@ -1,13 +1,13 @@
 const AWS = require('aws-sdk');
 
 const dynamoDB = new AWS.DynamoDB.DocumentClient();
-const TABLE_NAME = process.env.DYNAMODB_TABLE;
+const ORDERS_TABLE = process.env.ORDERS_TABLE;
 
 exports.handler = async (event) => {
   try {
-    const { id } = event.pathParameters;
+    const { orderId } = event.pathParameters;
 
-    if (!id) {
+    if (!orderId) {
       return {
         statusCode: 400,
         headers: {
@@ -20,12 +20,15 @@ exports.handler = async (event) => {
       };
     }
 
+    // Get item from OrdersTable using orderId
     const result = await dynamoDB.get({
-      TableName: TABLE_NAME,
-      Key: { id }
+      TableName: ORDERS_TABLE,
+      Key: { id: orderId }
     }).promise();
 
-    if (!result.Item) {
+    const order = result.Item;
+
+    if (!order) {
       return {
         statusCode: 404,
         headers: {
@@ -38,13 +41,14 @@ exports.handler = async (event) => {
       };
     }
 
+    // Return the full order details as per the updated requirements
     return {
       statusCode: 200,
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
       },
-      body: JSON.stringify(result.Item)
+      body: JSON.stringify(order)
     };
   } catch (error) {
     console.error('Error retrieving order:', error);
