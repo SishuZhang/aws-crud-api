@@ -25,13 +25,13 @@
     "aws-sdk-mock": "^5.8.0",
     "eslint": "^8.57.0",
     "jest": "^29.7.0",
-    "serverless": "^3.38.0",
+    "serverless": "^4.14.4",
     "serverless-dotenv-plugin": "^6.0.0",
     "serverless-offline": "^13.9.0",
     "supertest": "^6.3.4"
   },
   "engines": {
-    "node": ">=18.0.0"
+    "node": ">=20.0.0"
   },
   "jest": {
     "testEnvironment": "node",

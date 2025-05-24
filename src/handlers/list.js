@@ -22,7 +22,7 @@ const handler = async (event) => {
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*'
       },
-      body: JSON.stringify(result.Items)
+      body: JSON.stringify(result.Items || [])
     };
   } catch (error) {
     console.error('Error retrieving orders:', error);

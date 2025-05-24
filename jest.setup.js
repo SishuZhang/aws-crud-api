@@ -1,6 +1,8 @@
 // Set test environment variables
 process.env.DYNAMODB_TABLE = 'test-table';
 process.env.NODE_ENV = 'test';
+process.env.ORDERS_TABLE = 'OrdersTableTest';
+process.env.PRODUCTS_TABLE = 'ProductsTableTest';
 
 // Mock AWS SDK
 jest.mock('aws-sdk', () => {
