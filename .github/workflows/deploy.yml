@@ -3,6 +3,7 @@ name: Deploy and Manage Application
 on:
   push:
     branches:
+      - feature/*
       - dev
       - stg
       - main
