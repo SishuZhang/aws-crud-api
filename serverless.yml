@@ -1,6 +1,6 @@
 service: aws-crud-api
 
-frameworkVersion: '4'
+frameworkVersion: '3'
 
 provider:
   name: aws

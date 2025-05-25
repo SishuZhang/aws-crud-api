@@ -19,7 +19,6 @@ A robust, production-ready serverless CRUD API for managing customer orders, bui
 - [Deployment](#deployment)
 - [API Endpoints & Usage](#api-endpoints--usage)
 - [Cleanup](#cleanup)
-- [Screenshots](#screenshots)
 - [License](#license)
 
 ---
