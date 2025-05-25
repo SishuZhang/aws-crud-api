@@ -1,4 +1,4 @@
-name: Infrastructure Deployment
+name: Deploy and Manage Application
 
 on:
   push:
@@ -31,20 +31,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
           cache: 'npm'
-          
       - name: Install dependencies
         run: |
           npm install
           npm install -g serverless
-          
+      - name: Build application
+        run: npm run build
+      - name: Run tests
+        run: npm test
       - name: Validate serverless configuration
-        run: serverless package --stage ${{ github.event.inputs.stage || 'dev' }}
+        run: serverless package --stage ${{ github.event.inputs.stage || github.ref_name || 'dev' }}
 
   deploy:
     needs: validate
@@ -52,27 +53,23 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
           cache: 'npm'
-          
       - name: Install dependencies
         run: |
           npm install
           npm install -g serverless
-          
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-2
-          
       - name: Deploy to AWS
-        run: serverless deploy --stage ${{ github.event.inputs.stage || 'dev' }}
+        run: serverless deploy --stage ${{ github.event.inputs.stage || github.ref_name || 'dev' }}
 
   destroy:
     needs: validate
@@ -80,24 +77,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
           cache: 'npm'
-          
       - name: Install dependencies
         run: |
           npm install
           npm install -g serverless
-          
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-2
-          
       - name: Remove from AWS
-        run: serverless remove --stage ${{ github.event.inputs.stage || 'dev' }} 
+        run: serverless remove --stage ${{ github.event.inputs.stage || github.ref_name || 'dev' }} 
