@@ -1,15 +1,30 @@
 service: aws-crud-api
 
-frameworkVersion: '3'
+frameworkVersion: '4'
 
 provider:
   name: aws
-  runtime: nodejs18.x
+  runtime: nodejs20.x
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, 'us-east-2'}
   environment:
     NODE_ENV: ${self:provider.stage}
-    DYNAMODB_TABLE: ${self:service}-${self:provider.stage}
+    ORDERS_TABLE: ${self:service}-${self:provider.stage}-orders
+    PRODUCTS_TABLE: ${self:service}-${self:provider.stage}-products
+  httpApi:
+    cors:
+      allowedOrigins:
+        - '*'
+      allowedHeaders:
+        - Content-Type
+        - Authorization
+      allowedMethods:
+        - GET
+        - POST
+        - PUT
+        - DELETE
+        - OPTIONS
+      maxAge: 3600
   iam:
     role:
       statements:
@@ -21,68 +36,67 @@ provider:
             - dynamodb:PutItem
             - dynamodb:UpdateItem
             - dynamodb:DeleteItem
-          Resource: 
-            - "arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.DYNAMODB_TABLE}"
+          Resource:
+            - "arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.ORDERS_TABLE}"
+            - "arn:aws:dynamodb:${self:provider.region}:*:table/${self:provider.environment.PRODUCTS_TABLE}"
         - Effect: Allow
           Action:
             - logs:CreateLogGroup
             - logs:CreateLogStream
             - logs:PutLogEvents
-          Resource: 
+          Resource:
             - "arn:aws:logs:${self:provider.region}:*:log-group:/aws/lambda/*"
         - Effect: Allow
           Action:
             - apigateway:*
-          Resource: 
+          Resource:
             - "arn:aws:apigateway:${self:provider.region}::/*"
 
 functions:
-  createItem:
+  createOrder:
     handler: src/handlers/create.handler
     events:
       - httpApi:
-          path: /items
+          path: /orders
           method: post
-          cors: true
 
-  getItem:
+  getOrder:
     handler: src/handlers/get.handler
     events:
       - httpApi:
-          path: /items/{id}
+          path: /orders/{orderId}
           method: get
-          cors: true
 
-  listItems:
+  listOrders:
     handler: src/handlers/list.handler
     events:
       - httpApi:
-          path: /items
+          path: /orders
           method: get
-          cors: true
 
-  updateItem:
+  updateOrder:
     handler: src/handlers/update.handler
     events:
       - httpApi:
-          path: /items/{id}
+          path: /orders/{orderId}
           method: put
-          cors: true
 
-  deleteItem:
+  deleteOrder:
     handler: src/handlers/delete.handler
     events:
       - httpApi:
-          path: /items/{id}
+          path: /orders/{orderId}
           method: delete
-          cors: true
+
+  initializeProducts:
+    handler: src/handlers/initializeProducts.handler
 
 resources:
   Resources:
-    ItemsTable:
+    OrdersTable:
       Type: AWS::DynamoDB::Table
       Properties:
-        TableName: ${self:provider.environment.DYNAMODB_TABLE}
+        TableName: ${self:provider.environment.ORDERS_TABLE}
         AttributeDefinitions:
           - AttributeName: id
             AttributeType: S
@@ -95,63 +109,17 @@ resources:
         PointInTimeRecoverySpecification:
           PointInTimeRecoveryEnabled: true
 
-    ApiGatewayRestApi:
-      Type: AWS::ApiGateway::RestApi
+    ProductsTable:
+      Type: AWS::DynamoDB::Table
       Properties:
-        Name: ${self:service}-api-${self:provider.stage}
-        CorsConfiguration:
-          AllowOrigins:
-            - '*'
-          AllowMethods:
-            - GET
-            - POST
-            - PUT
-            - DELETE
-            - OPTIONS
-          AllowHeaders:
-            - Content-Type
-            - Authorization
-          MaxAge: 3600
-
-    ApiGatewayResource:
-      Type: AWS::ApiGateway::Resource
-      Properties:
-        RestApiId: !Ref ApiGatewayRestApi
-        ParentId: !GetAtt ApiGatewayRestApi.RootResourceId
-        PathPart: items
-
-    ApiGatewayMethod:
-      Type: AWS::ApiGateway::Method
-      Properties:
-        RestApiId: !Ref ApiGatewayRestApi
-        ResourceId: !Ref ApiGatewayResource
-        HttpMethod: ANY
-        AuthorizationType: NONE
-        Integration:
-          Type: AWS_PROXY
-          IntegrationHttpMethod: POST
-          Uri: !Sub arn:aws:apigateway:${self:provider.region}:lambda:path/2015-03-31/functions/${createItem.Arn}/invocations
-
-    ApiGatewayDeployment:
-      Type: AWS::ApiGateway::Deployment
-      Properties:
-        RestApiId: !Ref ApiGatewayRestApi
-        StageName: ${self:provider.stage}
-
-    ApiGatewayStage:
-      Type: AWS::ApiGateway::Stage
-      Properties:
-        RestApiId: !Ref ApiGatewayRestApi
-        DeploymentId: !Ref ApiGatewayDeployment
-        StageName: ${self:provider.stage}
-
-    ApiGatewayPermission:
-      Type: AWS::Lambda::Permission
-      Properties:
-        Action: lambda:InvokeFunction
-        FunctionName: !Ref createItem
-        Principal: apigateway.amazonaws.com
-        SourceArn: !Sub arn:aws:execute-api:${self:provider.region}:*:${ApiGatewayRestApi}/*/*/*
+        TableName: ${self:provider.environment.PRODUCTS_TABLE}
+        AttributeDefinitions:
+          - AttributeName: productName
+            AttributeType: S
+        KeySchema:
+          - AttributeName: productName
+            KeyType: HASH
+        BillingMode: PAY_PER_REQUEST
 
     CloudWatchLogGroup:
       Type: AWS::Logs::LogGroup
