@@ -5,30 +5,31 @@ A robust, production-ready serverless CRUD API for managing customer orders, bui
 ---
 
 ## Table of Contents
-- [Project Overview](#project-overview)
-- [Use Case Scenario](#use-case-scenario)
-- [Features](#features)
-- [Architecture Overview](#architecture-overview)
-- [Prerequisites](#prerequisites)
-- [Infrastructure Design](#infrastructure-design)
-- [Code Design](#code-design)
-- [Setup & Installation](#setup--installation)
-- [Local Development](#local-development)
-- [Testing](#testing)
-- [CI/CD & Automation](#cicd--automation)
-- [Deployment](#deployment)
-- [API Endpoints & Usage](#api-endpoints--usage)
-- [Cleanup](#cleanup)
-- [License](#license)
+1. [Project Overview](#1-project-overview)
+2. [Use Case Scenario](#2-use-case-scenario)
+3. [Features](#3-features)
+4. [Architecture Overview](#4-architecture-overview)
+5. [Design Details](#5-design-details)
+6. [Prerequisites](#6-prerequisites)
+7. [Infrastructure Design](#7-infrastructure-design)
+8. [Code Design](#8-code-design)
+9. [Setup & Installation](#9-setup--installation)
+10. [Local Development](#10-local-development)
+11. [Testing](#11-testing)
+12. [CI/CD & Automation](#12-cicd--automation)
+13. [Deployment](#13-deployment)
+14. [API Endpoints & Usage](#14-api-endpoints--usage)
+15. [Cleanup](#15-cleanup)
+16. [License](#16-license)
 
 ---
 
-## Project Overview
+## 1. Project Overview
 This repository contains a fully serverless CRUD API for managing customer orders. The solution leverages AWS Lambda for compute, DynamoDB for persistent storage, and API Gateway for HTTP endpoints. The Serverless Framework is used for infrastructure-as-code, making deployment and management seamless. The project is structured for scalability, maintainability, and ease of extension.
 
 ---
 
-## Use Case Scenario
+## 2. Use Case Scenario
 Imagine a growing online shop that needs to manage customer orders, products, and order statuses efficiently. As the business scales, traditional server management becomes a bottleneck. By adopting a serverless architecture, the shop can:
 - Automatically scale to handle traffic spikes
 - Reduce operational overhead and costs
@@ -39,7 +40,7 @@ This project provides a blueprint for such a transition, with a focus on real-wo
 
 ---
 
-## Features
+## 3. Features
 - **Full CRUD Operations**: Create, read, update, and delete customer orders
 - **Product Catalog Initialization**: Easily populate the products table
 - **Order Status Management**: Update and track order statuses
@@ -51,7 +52,7 @@ This project provides a blueprint for such a transition, with a focus on real-wo
 
 ---
 
-## Architecture Overview
+## 4. Architecture Overview
 - **API Gateway**: Exposes RESTful HTTP endpoints for all CRUD operations
 - **AWS Lambda**: Stateless compute for each API operation (one handler per operation)
 - **DynamoDB**: Two tables—one for orders, one for products
@@ -62,7 +63,47 @@ This project provides a blueprint for such a transition, with a focus on real-wo
 ![Project Infrastructure Diagram](assets/Infra%20diagram.png)
 ---
 
-## Prerequisites
+## 5. Design Details
+
+### 5.1 IAM Policy & Least Privilege
+- **Principle:** Each Lambda function is granted only the minimum permissions required to perform its task.
+- **Implementation:**
+  - The `serverless.yml` defines IAM roles and policies for each Lambda.
+  - For example, the `initializeProducts` Lambda is only allowed `dynamodb:PutItem` and `dynamodb:BatchWriteItem` on the Products table, and has no access to the Orders table.
+  - Order-related Lambdas (create, update, delete, get, list) have access only to the Orders table and, where needed, read access to the Products table for validation.
+  - No Lambda has wildcard (`*`) permissions; all resources and actions are explicitly scoped.
+- **Security:** This approach minimizes the blast radius in case of a compromise and follows AWS best practices for serverless security.
+
+### 5.2 Lambda Functions: Brief Code Explanation
+- **initializeProducts.js:**  Populates the Products table with initial product data. Reads from a local constant and writes each product to DynamoDB. Does not interact with the Orders table.
+- **create.js:**  Validates and creates a new order. Checks product existence and price from the Products table, calculates totals, and writes the order to the Orders table.
+- **get.js:**  Retrieves a single order by ID from the Orders table.
+- **list.js:**  Lists all orders, with optional pagination, from the Orders table.
+- **update.js:**  Updates order details (customer info, items, status). Revalidates items against the Products table and recalculates totals.
+- **updateStatus.js:**  Updates only the status of an order in the Orders table.
+- **delete.js:**  Deletes an order by ID from the Orders table.
+
+Each handler is a single-purpose Lambda, following the microservice principle and keeping business logic isolated and testable.
+
+**AWS Lambda Console Example:**
+![Lambda Functions Overview](assets/Lambda.PNG)
+
+**DynamoDB Table Example:**
+![DynamoDB Table Structure](assets/DynamoDB.PNG)
+
+### 5.3 Workflow Pipeline Design
+- **CI/CD Pipeline (GitHub Actions):**
+  - **Trigger:** On push to `dev`, `stg`, or `main` branches, or via manual dispatch.
+  - **Jobs:**
+    1. **Validate:**  Checks out code, installs dependencies, builds the project, runs all tests, and validates the Serverless configuration.
+    2. **Deploy:**  If validation passes, configures AWS credentials using GitHub Secrets, then deploys the stack to AWS using the Serverless Framework.
+    3. **Destroy:**  (Manual only) Removes the stack from AWS for the selected stage.
+  - **Security:**  AWS credentials are never hardcoded; they are injected via GitHub Secrets. The pipeline enforces that only tested and validated code is deployed.
+  - **Branch Strategy:**  Promotes code from feature branches to dev, stg, and main for progressive testing and deployment.
+
+---
+
+## 6. Prerequisites
 - **Node.js** >= 20.x
 - **npm** >= 8.x
 - **AWS CLI** configured with access to your AWS account
@@ -74,7 +115,7 @@ This project provides a blueprint for such a transition, with a focus on real-wo
 
 ---
 
-## Infrastructure Design
+## 7. Infrastructure Design
 - **Orders Table**: DynamoDB table for customer orders (partition key: `id`)
 - **Products Table**: DynamoDB table for product catalog (partition key: `productName`)
 - **API Endpoints**: `/orders`, `/orders/{orderId}`
@@ -86,7 +127,7 @@ This project provides a blueprint for such a transition, with a focus on real-wo
 
 ---
 
-## Code Design
+## 8. Code Design
 - **src/handlers/**: Lambda functions for each API operation
   - `create.js`: Create a new order (validates input, enriches items, calculates totals)
   - `get.js`: Retrieve an order by ID
@@ -103,7 +144,7 @@ This project provides a blueprint for such a transition, with a focus on real-wo
 
 ---
 
-## Setup & Installation
+## 9. Setup & Installation
 1. **Clone the repository**
    ```bash
    git clone <your-repo-url>
@@ -117,30 +158,9 @@ This project provides a blueprint for such a transition, with a focus on real-wo
    Ensure your AWS CLI is configured (`aws configure`).
 
 
-
 ---
 
-## Local Development
-Develop and test your API locally before deploying to AWS.
-
-1. **Start DynamoDB Local (optional, for full local experience):**
-   - Use Docker or install DynamoDB Local manually.
-   - Example with Docker:
-     ```bash
-     docker run -p 8000:8000 amazon/dynamodb-local
-     ```
-2. **Start the local server:**
-   ```bash
-   npm run offline
-   ```
-   The API will be available at `http://localhost:4000`.
-3. **Test endpoints locally** using Postman, curl, or your preferred tool.
-
-
-
----
-
-## Testing
+## 10. Testing
 Automated tests ensure code quality and reliability.
 
 - **Run all tests:**
@@ -162,31 +182,36 @@ Automated tests ensure code quality and reliability.
 
 Test files are located in `__tests__/unit` and `__tests__/integration`.
 
-
+**Test Coverage Example:**
+![Test Coverage Report](assets/TestCoverage.png)
 
 ---
 
-## CI/CD & Automation
+## 11. CI/CD & Automation
 Integrate with GitHub Actions or your preferred CI/CD tool for automated deployment and testing.
 
 - **Recommended Branch Strategy:**
   - `main`: Production
+  - `stg`: Development
   - `dev`: Development
   - Feature branches: `feature/xyz`
 - **Typical Workflow:**
-  1. Push changes to `dev` for development deployments
-  2. Merge to `main` for production deployments
+  1. Push changes to `feature/xyz` for local deployments
+  2. Merge to `dev` for Dev testing deployments
+  3. Merge to `stg` for QA testing deployments
+  4. Merge to `main` for production deployments
 - **GitHub Actions Example:**
   - Install dependencies
   - Run tests
   - Deploy to AWS using Serverless Framework
   - Use GitHub Secrets for AWS credentials and Serverless access key
 
-
+**CI/CD Pipeline Example:**
+![CI/CD Pipeline](assets/CICD.PNG)
 
 ---
 
-## Deployment
+## 12. Deployment
 1. **Deploy to AWS:**
    ```bash
    npm run deploy
@@ -198,11 +223,12 @@ Integrate with GitHub Actions or your preferred CI/CD tool for automated deploym
 3. **Retrieve API Gateway URL:**
    - After deployment, note the API endpoint URL output by Serverless or in the AWS Console.
 
-
+**Deployment Example:**
+![Deploy Example](assets/Deploy.PNG)
 
 ---
 
-## API Endpoints & Usage
+## 13. API Endpoints & Usage
 - `POST   /orders` - Create a new order
 - `GET    /orders/{orderId}` - Get order by ID
 - `GET    /orders` - List all orders
@@ -213,7 +239,7 @@ Integrate with GitHub Actions or your preferred CI/CD tool for automated deploym
 ### Example Usage (with curl)
 ```bash
 # Create an order
-curl -X POST <API_URL>/orders -H 'Content-Type: application/json' -d '{"customerName":"John Doe","items":{"apple":2},"shippingAddress":"123 Main St"}'
+curl -X POST <API_URL>/orders -H 'Content-Type: application/json' -d '{"customerName":"John Doe","items":{"Apple":2},"shippingAddress":"123 Main St"}'
 
 # Get an order
 curl <API_URL>/orders/<orderId>
@@ -231,11 +257,24 @@ curl -X PUT <API_URL>/orders/<orderId>/status -H 'Content-Type: application/json
 curl -X DELETE <API_URL>/orders/<orderId>
 ```
 
+**Create Order Example:**
+![Create Order](assets/CreateOrder.PNG)
 
+**List Orders Example:**
+![List Orders](assets/ListOrders.PNG)
+
+**Update Order Example:**
+![Update Order](assets/UpdateOrder.png)
+
+**Update Status Example:**
+![Update Status](assets/UpdateStatus.png)
+
+**Delete Order Example:**
+![Delete Order](assets/DeleteOrder.png)
 
 ---
 
-## Cleanup
+## 14. Cleanup
 To remove all deployed resources:
 ```bash
 npm run remove
@@ -247,5 +286,5 @@ serverless remove
 
 ---
 
-## License
+## 15. License
 [MIT](LICENSE)

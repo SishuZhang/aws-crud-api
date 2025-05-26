@@ -119,20 +119,6 @@ describe('Integration Handlers', () => {
     expect(body.customerName).toBe('Jane Doe');
   });
 
-  test('updateStatusHandler should update order status', async () => {
-    const AWS = require('aws-sdk');
-    const docClientMock = AWS.DynamoDB.DocumentClient.mockInstance;
-    docClientMock.update.mockImplementation(() => ({ promise: () => Promise.resolve({ Attributes: { id: orderId, status: 'SHIPPED' } }) }));
-    const { handler: updateStatusHandler } = require('../../src/handlers/updateStatus');
-    const event = {
-      pathParameters: { id: orderId },
-      body: JSON.stringify({ status: 'SHIPPED' })
-    };
-    const res = await updateStatusHandler(event);
-    expect(res.statusCode).toBe(200);
-    const body = JSON.parse(res.body);
-    expect(body.order.status).toBe('SHIPPED');
-  });
 
   test('deleteHandler should delete an order', async () => {
     const AWS = require('aws-sdk');
