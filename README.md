@@ -80,7 +80,6 @@ This project provides a blueprint for such a transition, with a focus on real-wo
 - **get.js:**  Retrieves a single order by ID from the Orders table.
 - **list.js:**  Lists all orders, with optional pagination, from the Orders table.
 - **update.js:**  Updates order details (customer info, items, status). Revalidates items against the Products table and recalculates totals.
-- **updateStatus.js:**  Updates only the status of an order in the Orders table.
 - **delete.js:**  Deletes an order by ID from the Orders table.
 
 Each handler is a single-purpose Lambda, following the microservice principle and keeping business logic isolated and testable.
@@ -133,7 +132,6 @@ Each handler is a single-purpose Lambda, following the microservice principle an
   - `get.js`: Retrieve an order by ID
   - `list.js`: List all orders (supports pagination)
   - `update.js`: Update order details (supports partial updates, recalculates totals)
-  - `updateStatus.js`: Update only the order status
   - `delete.js`: Delete an order by ID
   - `initializeProducts.js`: Populate the products table with initial data
 - **src/constants/products.js**: Defines the product catalog and utility functions
