@@ -20,7 +20,8 @@ A robust, production-ready serverless CRUD API for managing customer orders, bui
 13. [Deployment](#13-deployment)
 14. [API Endpoints & Usage](#14-api-endpoints--usage)
 15. [Cleanup](#15-cleanup)
-16. [License](#16-license)
+16. [Future Expansion](#16-future-expansion)
+17. [License](#17-license)
 
 ---
 
@@ -284,5 +285,28 @@ serverless remove
 
 ---
 
-## 15. License
+## 15. Future Expansion
+
+This project provides a solid foundation for a serverless CRUD API, but there are several areas for future enhancement to further improve security, scalability, and usability:
+
+- **User Authentication with Amazon Cognito:**
+  - Integrate Amazon Cognito to provide secure user sign-up, sign-in, and access control for API endpoints. This enables user-specific data access and supports OAuth, SAML, and social identity providers.
+
+- **Web Application Firewall (WAF):**
+  - Add AWS WAF in front of API Gateway to protect against common web exploits and bots, providing an additional layer of security for your API.
+
+- **API Tracing with AWS X-Ray:**
+  - Enable AWS X-Ray for Lambda functions and API Gateway to trace requests end-to-end, identify performance bottlenecks, and debug distributed systems more effectively.
+
+- **Enhanced Table Design:**
+  - Refine DynamoDB table schemas for scalability and query efficiency. Consider using composite keys, secondary indexes, and normalization/denormalization strategies to support more complex queries and relationships.
+
+- **Custom Domain Name for API Gateway:**
+  - Configure a custom domain name for your API Gateway, enabling branded URLs, HTTPS, and easier integration with frontend applications.
+
+These enhancements will help transition the project from a robust prototype to a production-grade, enterprise-ready solution.
+
+---
+
+## 16. License
 [MIT](LICENSE)
