@@ -16,14 +16,6 @@ const PRODUCTS = {
   }
 };
 
-const calculateOrderTotal = (items) => {
-  return Object.entries(items).reduce((total, [productId, quantity]) => {
-    const product = PRODUCTS[productId.toUpperCase()];
-    return total + (product.price * quantity);
-  }, 0);
-};
-
 module.exports = {
-  PRODUCTS,
-  calculateOrderTotal
+  PRODUCTS
 }; 

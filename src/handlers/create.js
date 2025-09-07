@@ -1,8 +1,10 @@
 const AWS = require('aws-sdk');
 const { v4: uuidv4 } = require('uuid');
 const { getESTTimestamp } = require('../utils/timestamp');
+const { MockDocumentClient } = require('../utils/mockDynamoDB');
 
-const dynamoDB = new AWS.DynamoDB.DocumentClient();
+// Use mock DynamoDB for local development
+const dynamoDB = process.env.NODE_ENV === 'dev' ? new MockDocumentClient() : new AWS.DynamoDB.DocumentClient();
 const ORDERS_TABLE = process.env.ORDERS_TABLE;
 const PRODUCTS_TABLE = process.env.PRODUCTS_TABLE;
 

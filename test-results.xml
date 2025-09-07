@@ -1,0 +1,1149 @@
+<testsuites id="" name="" tests="120" failures="16" skipped="104" errors="0" time="26.612401000000002">
+<testsuite name="api.test.js" timestamp="2025-09-07T20:07:41.291Z" hostname="chromium" tests="12" failures="12" skipped="0" time="72.293" errors="0">
+<testcase name="AWS CRUD API Tests › should display the order management interface" classname="api.test.js" time="6.02">
+<failure message="api.test.js:17:3 should display the order management interface" type="FAILURE">
+<![CDATA[  [chromium] › api.test.js:17:3 › AWS CRUD API Tests › should display the order management interface 
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('#apiStatus')
+    Expected string: "API Online"
+    Received: <element(s) not found>
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toContainText" with timeout 5000ms
+      - waiting for locator('#apiStatus')
+
+
+      12 |     
+      13 |     // Check if API is online
+    > 14 |     await expect(page.locator('#apiStatus')).toContainText('API Online');
+         |                                              ^
+      15 |   });
+      16 |
+      17 |   test('should display the order management interface', async ({ page }) => {
+        at D:\Project\aws-crud-api\tests\api.test.js:14:46
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\test-results\api-AWS-CRUD-API-Tests-sho-6104c--order-management-interface-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\test-results\api-AWS-CRUD-API-Tests-sho-6104c--order-management-interface-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\test-results\api-AWS-CRUD-API-Tests-sho-6104c--order-management-interface-chromium\error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|test-results\api-AWS-CRUD-API-Tests-sho-6104c--order-management-interface-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|test-results\api-AWS-CRUD-API-Tests-sho-6104c--order-management-interface-chromium\video.webm]]
+
+[[ATTACHMENT|test-results\api-AWS-CRUD-API-Tests-sho-6104c--order-management-interface-chromium\error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="AWS CRUD API Tests › should create a new order successfully" classname="api.test.js" time="6.01">
+<failure message="api.test.js:27:3 should create a new order successfully" type="FAILURE">
+<![CDATA[  [chromium] › api.test.js:27:3 › AWS CRUD API Tests › should create a new order successfully ──────
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('#apiStatus')
+    Expected string: "API Online"
+    Received: <element(s) not found>
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toContainText" with timeout 5000ms
+      - waiting for locator('#apiStatus')
+
+
+      12 |     
+      13 |     // Check if API is online
+    > 14 |     await expect(page.locator('#apiStatus')).toContainText('API Online');
+         |                                              ^
+      15 |   });
+      16 |
+      17 |   test('should display the order management interface', async ({ page }) => {
+        at D:\Project\aws-crud-api\tests\api.test.js:14:46
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\test-results\api-AWS-CRUD-API-Tests-sho-d0721-te-a-new-order-successfully-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\test-results\api-AWS-CRUD-API-Tests-sho-d0721-te-a-new-order-successfully-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\test-results\api-AWS-CRUD-API-Tests-sho-d0721-te-a-new-order-successfully-chromium\error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|test-results\api-AWS-CRUD-API-Tests-sho-d0721-te-a-new-order-successfully-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|test-results\api-AWS-CRUD-API-Tests-sho-d0721-te-a-new-order-successfully-chromium\video.webm]]
+
+[[ATTACHMENT|test-results\api-AWS-CRUD-API-Tests-sho-d0721-te-a-new-order-successfully-chromium\error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="AWS CRUD API Tests › should create order with multiple items" classname="api.test.js" time="6.027">
+<failure message="api.test.js:52:3 should create order with multiple items" type="FAILURE">
+<![CDATA[  [chromium] › api.test.js:52:3 › AWS CRUD API Tests › should create order with multiple items ─────
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('#apiStatus')
+    Expected string: "API Online"
+    Received: <element(s) not found>
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toContainText" with timeout 5000ms
+      - waiting for locator('#apiStatus')
+
+
+      12 |     
+      13 |     // Check if API is online
+    > 14 |     await expect(page.locator('#apiStatus')).toContainText('API Online');
+         |                                              ^
+      15 |   });
+      16 |
+      17 |   test('should display the order management interface', async ({ page }) => {
+        at D:\Project\aws-crud-api\tests\api.test.js:14:46
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\test-results\api-AWS-CRUD-API-Tests-sho-8c40a-e-order-with-multiple-items-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\test-results\api-AWS-CRUD-API-Tests-sho-8c40a-e-order-with-multiple-items-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\test-results\api-AWS-CRUD-API-Tests-sho-8c40a-e-order-with-multiple-items-chromium\error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|test-results\api-AWS-CRUD-API-Tests-sho-8c40a-e-order-with-multiple-items-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|test-results\api-AWS-CRUD-API-Tests-sho-8c40a-e-order-with-multiple-items-chromium\video.webm]]
+
+[[ATTACHMENT|test-results\api-AWS-CRUD-API-Tests-sho-8c40a-e-order-with-multiple-items-chromium\error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="AWS CRUD API Tests › should validate required fields" classname="api.test.js" time="6.092">
+<failure message="api.test.js:82:3 should validate required fields" type="FAILURE">
+<![CDATA[  [chromium] › api.test.js:82:3 › AWS CRUD API Tests › should validate required fields ─────────────
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('#apiStatus')
+    Expected string: "API Online"
+    Received: <element(s) not found>
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toContainText" with timeout 5000ms
+      - waiting for locator('#apiStatus')
+
+
+      12 |     
+      13 |     // Check if API is online
+    > 14 |     await expect(page.locator('#apiStatus')).toContainText('API Online');
+         |                                              ^
+      15 |   });
+      16 |
+      17 |   test('should display the order management interface', async ({ page }) => {
+        at D:\Project\aws-crud-api\tests\api.test.js:14:46
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\test-results\api-AWS-CRUD-API-Tests-should-validate-required-fields-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\test-results\api-AWS-CRUD-API-Tests-should-validate-required-fields-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\test-results\api-AWS-CRUD-API-Tests-should-validate-required-fields-chromium\error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|test-results\api-AWS-CRUD-API-Tests-should-validate-required-fields-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|test-results\api-AWS-CRUD-API-Tests-should-validate-required-fields-chromium\video.webm]]
+
+[[ATTACHMENT|test-results\api-AWS-CRUD-API-Tests-should-validate-required-fields-chromium\error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="AWS CRUD API Tests › should list orders" classname="api.test.js" time="6.201">
+<failure message="api.test.js:94:3 should list orders" type="FAILURE">
+<![CDATA[  [chromium] › api.test.js:94:3 › AWS CRUD API Tests › should list orders ──────────────────────────
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('#apiStatus')
+    Expected string: "API Online"
+    Received: <element(s) not found>
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toContainText" with timeout 5000ms
+      - waiting for locator('#apiStatus')
+
+
+      12 |     
+      13 |     // Check if API is online
+    > 14 |     await expect(page.locator('#apiStatus')).toContainText('API Online');
+         |                                              ^
+      15 |   });
+      16 |
+      17 |   test('should display the order management interface', async ({ page }) => {
+        at D:\Project\aws-crud-api\tests\api.test.js:14:46
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\test-results\api-AWS-CRUD-API-Tests-should-list-orders-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\test-results\api-AWS-CRUD-API-Tests-should-list-orders-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\test-results\api-AWS-CRUD-API-Tests-should-list-orders-chromium\error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|test-results\api-AWS-CRUD-API-Tests-should-list-orders-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|test-results\api-AWS-CRUD-API-Tests-should-list-orders-chromium\video.webm]]
+
+[[ATTACHMENT|test-results\api-AWS-CRUD-API-Tests-should-list-orders-chromium\error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="AWS CRUD API Tests › should get specific order" classname="api.test.js" time="6.077">
+<failure message="api.test.js:106:3 should get specific order" type="FAILURE">
+<![CDATA[  [chromium] › api.test.js:106:3 › AWS CRUD API Tests › should get specific order ──────────────────
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('#apiStatus')
+    Expected string: "API Online"
+    Received: <element(s) not found>
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toContainText" with timeout 5000ms
+      - waiting for locator('#apiStatus')
+
+
+      12 |     
+      13 |     // Check if API is online
+    > 14 |     await expect(page.locator('#apiStatus')).toContainText('API Online');
+         |                                              ^
+      15 |   });
+      16 |
+      17 |   test('should display the order management interface', async ({ page }) => {
+        at D:\Project\aws-crud-api\tests\api.test.js:14:46
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\test-results\api-AWS-CRUD-API-Tests-should-get-specific-order-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\test-results\api-AWS-CRUD-API-Tests-should-get-specific-order-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\test-results\api-AWS-CRUD-API-Tests-should-get-specific-order-chromium\error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|test-results\api-AWS-CRUD-API-Tests-should-get-specific-order-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|test-results\api-AWS-CRUD-API-Tests-should-get-specific-order-chromium\video.webm]]
+
+[[ATTACHMENT|test-results\api-AWS-CRUD-API-Tests-should-get-specific-order-chromium\error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="AWS CRUD API Tests › should update order" classname="api.test.js" time="6.039">
+<failure message="api.test.js:136:3 should update order" type="FAILURE">
+<![CDATA[  [chromium] › api.test.js:136:3 › AWS CRUD API Tests › should update order ────────────────────────
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('#apiStatus')
+    Expected string: "API Online"
+    Received: <element(s) not found>
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toContainText" with timeout 5000ms
+      - waiting for locator('#apiStatus')
+
+
+      12 |     
+      13 |     // Check if API is online
+    > 14 |     await expect(page.locator('#apiStatus')).toContainText('API Online');
+         |                                              ^
+      15 |   });
+      16 |
+      17 |   test('should display the order management interface', async ({ page }) => {
+        at D:\Project\aws-crud-api\tests\api.test.js:14:46
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\test-results\api-AWS-CRUD-API-Tests-should-update-order-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\test-results\api-AWS-CRUD-API-Tests-should-update-order-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\test-results\api-AWS-CRUD-API-Tests-should-update-order-chromium\error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|test-results\api-AWS-CRUD-API-Tests-should-update-order-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|test-results\api-AWS-CRUD-API-Tests-should-update-order-chromium\video.webm]]
+
+[[ATTACHMENT|test-results\api-AWS-CRUD-API-Tests-should-update-order-chromium\error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="AWS CRUD API Tests › should delete order" classname="api.test.js" time="6.094">
+<failure message="api.test.js:167:3 should delete order" type="FAILURE">
+<![CDATA[  [chromium] › api.test.js:167:3 › AWS CRUD API Tests › should delete order ────────────────────────
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('#apiStatus')
+    Expected string: "API Online"
+    Received: <element(s) not found>
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toContainText" with timeout 5000ms
+      - waiting for locator('#apiStatus')
+
+
+      12 |     
+      13 |     // Check if API is online
+    > 14 |     await expect(page.locator('#apiStatus')).toContainText('API Online');
+         |                                              ^
+      15 |   });
+      16 |
+      17 |   test('should display the order management interface', async ({ page }) => {
+        at D:\Project\aws-crud-api\tests\api.test.js:14:46
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\test-results\api-AWS-CRUD-API-Tests-should-delete-order-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\test-results\api-AWS-CRUD-API-Tests-should-delete-order-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\test-results\api-AWS-CRUD-API-Tests-should-delete-order-chromium\error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|test-results\api-AWS-CRUD-API-Tests-should-delete-order-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|test-results\api-AWS-CRUD-API-Tests-should-delete-order-chromium\video.webm]]
+
+[[ATTACHMENT|test-results\api-AWS-CRUD-API-Tests-should-delete-order-chromium\error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="AWS CRUD API Tests › should handle API errors gracefully" classname="api.test.js" time="5.942">
+<failure message="api.test.js:200:3 should handle API errors gracefully" type="FAILURE">
+<![CDATA[  [chromium] › api.test.js:200:3 › AWS CRUD API Tests › should handle API errors gracefully ────────
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('#apiStatus')
+    Expected string: "API Online"
+    Received: <element(s) not found>
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toContainText" with timeout 5000ms
+      - waiting for locator('#apiStatus')
+
+
+      12 |     
+      13 |     // Check if API is online
+    > 14 |     await expect(page.locator('#apiStatus')).toContainText('API Online');
+         |                                              ^
+      15 |   });
+      16 |
+      17 |   test('should display the order management interface', async ({ page }) => {
+        at D:\Project\aws-crud-api\tests\api.test.js:14:46
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\test-results\api-AWS-CRUD-API-Tests-should-handle-API-errors-gracefully-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\test-results\api-AWS-CRUD-API-Tests-should-handle-API-errors-gracefully-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\test-results\api-AWS-CRUD-API-Tests-should-handle-API-errors-gracefully-chromium\error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|test-results\api-AWS-CRUD-API-Tests-should-handle-API-errors-gracefully-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|test-results\api-AWS-CRUD-API-Tests-should-handle-API-errors-gracefully-chromium\video.webm]]
+
+[[ATTACHMENT|test-results\api-AWS-CRUD-API-Tests-should-handle-API-errors-gracefully-chromium\error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="AWS CRUD API Tests › should validate order limits" classname="api.test.js" time="5.916">
+<failure message="api.test.js:215:3 should validate order limits" type="FAILURE">
+<![CDATA[  [chromium] › api.test.js:215:3 › AWS CRUD API Tests › should validate order limits ───────────────
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('#apiStatus')
+    Expected string: "API Online"
+    Received: <element(s) not found>
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toContainText" with timeout 5000ms
+      - waiting for locator('#apiStatus')
+
+
+      12 |     
+      13 |     // Check if API is online
+    > 14 |     await expect(page.locator('#apiStatus')).toContainText('API Online');
+         |                                              ^
+      15 |   });
+      16 |
+      17 |   test('should display the order management interface', async ({ page }) => {
+        at D:\Project\aws-crud-api\tests\api.test.js:14:46
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\test-results\api-AWS-CRUD-API-Tests-should-validate-order-limits-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\test-results\api-AWS-CRUD-API-Tests-should-validate-order-limits-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\test-results\api-AWS-CRUD-API-Tests-should-validate-order-limits-chromium\error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|test-results\api-AWS-CRUD-API-Tests-should-validate-order-limits-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|test-results\api-AWS-CRUD-API-Tests-should-validate-order-limits-chromium\video.webm]]
+
+[[ATTACHMENT|test-results\api-AWS-CRUD-API-Tests-should-validate-order-limits-chromium\error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="AWS CRUD API Tests › should handle invalid product selection" classname="api.test.js" time="5.938">
+<failure message="api.test.js:228:3 should handle invalid product selection" type="FAILURE">
+<![CDATA[  [chromium] › api.test.js:228:3 › AWS CRUD API Tests › should handle invalid product selection ────
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('#apiStatus')
+    Expected string: "API Online"
+    Received: <element(s) not found>
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toContainText" with timeout 5000ms
+      - waiting for locator('#apiStatus')
+
+
+      12 |     
+      13 |     // Check if API is online
+    > 14 |     await expect(page.locator('#apiStatus')).toContainText('API Online');
+         |                                              ^
+      15 |   });
+      16 |
+      17 |   test('should display the order management interface', async ({ page }) => {
+        at D:\Project\aws-crud-api\tests\api.test.js:14:46
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\test-results\api-AWS-CRUD-API-Tests-sho-e8b46-e-invalid-product-selection-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\test-results\api-AWS-CRUD-API-Tests-sho-e8b46-e-invalid-product-selection-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\test-results\api-AWS-CRUD-API-Tests-sho-e8b46-e-invalid-product-selection-chromium\error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|test-results\api-AWS-CRUD-API-Tests-sho-e8b46-e-invalid-product-selection-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|test-results\api-AWS-CRUD-API-Tests-sho-e8b46-e-invalid-product-selection-chromium\video.webm]]
+
+[[ATTACHMENT|test-results\api-AWS-CRUD-API-Tests-sho-e8b46-e-invalid-product-selection-chromium\error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="AWS CRUD API Tests › should handle network errors" classname="api.test.js" time="5.937">
+<failure message="api.test.js:246:3 should handle network errors" type="FAILURE">
+<![CDATA[  [chromium] › api.test.js:246:3 › AWS CRUD API Tests › should handle network errors ───────────────
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: locator('#apiStatus')
+    Expected string: "API Online"
+    Received: <element(s) not found>
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toContainText" with timeout 5000ms
+      - waiting for locator('#apiStatus')
+
+
+      12 |     
+      13 |     // Check if API is online
+    > 14 |     await expect(page.locator('#apiStatus')).toContainText('API Online');
+         |                                              ^
+      15 |   });
+      16 |
+      17 |   test('should display the order management interface', async ({ page }) => {
+        at D:\Project\aws-crud-api\tests\api.test.js:14:46
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\test-results\api-AWS-CRUD-API-Tests-should-handle-network-errors-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\test-results\api-AWS-CRUD-API-Tests-should-handle-network-errors-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\test-results\api-AWS-CRUD-API-Tests-should-handle-network-errors-chromium\error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|test-results\api-AWS-CRUD-API-Tests-should-handle-network-errors-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|test-results\api-AWS-CRUD-API-Tests-should-handle-network-errors-chromium\video.webm]]
+
+[[ATTACHMENT|test-results\api-AWS-CRUD-API-Tests-should-handle-network-errors-chromium\error-context.md]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="ui.test.js" timestamp="2025-09-07T20:07:41.291Z" hostname="chromium" tests="12" failures="4" skipped="8" time="107.739" errors="0">
+<testcase name="UI Component Tests › should have responsive design" classname="ui.test.js" time="5.934">
+<failure message="ui.test.js:9:3 should have responsive design" type="FAILURE">
+<![CDATA[  [chromium] › ui.test.js:9:3 › UI Component Tests › should have responsive design ─────────────────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('.container')
+    Expected: visible
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('.container')
+
+
+      10 |     // Test desktop view
+      11 |     await page.setViewportSize({ width: 1200, height: 800 });
+    > 12 |     await expect(page.locator('.container')).toBeVisible();
+         |                                              ^
+      13 |     
+      14 |     // Test mobile view
+      15 |     await page.setViewportSize({ width: 375, height: 667 });
+        at D:\Project\aws-crud-api\tests\ui.test.js:12:46
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\test-results\ui-UI-Component-Tests-should-have-responsive-design-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\test-results\ui-UI-Component-Tests-should-have-responsive-design-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\test-results\ui-UI-Component-Tests-should-have-responsive-design-chromium\error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|test-results\ui-UI-Component-Tests-should-have-responsive-design-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|test-results\ui-UI-Component-Tests-should-have-responsive-design-chromium\video.webm]]
+
+[[ATTACHMENT|test-results\ui-UI-Component-Tests-should-have-responsive-design-chromium\error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="UI Component Tests › should display loading states" classname="ui.test.js" time="16.989">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should handle form validation" classname="ui.test.js" time="16.918">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should add and remove items dynamically" classname="ui.test.js" time="0.701">
+<failure message="ui.test.js:42:3 should add and remove items dynamically" type="FAILURE">
+<![CDATA[  [chromium] › ui.test.js:42:3 › UI Component Tests › should add and remove items dynamically ──────
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 1
+    Received: 0
+
+      43 |     // Check initial item count
+      44 |     let itemInputs = await page.locator('.item-input').count();
+    > 45 |     expect(itemInputs).toBe(1);
+         |                        ^
+      46 |     
+      47 |     // Add an item
+      48 |     await page.click('.add-item');
+        at D:\Project\aws-crud-api\tests\ui.test.js:45:24
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\test-results\ui-UI-Component-Tests-shou-e03c6-nd-remove-items-dynamically-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\test-results\ui-UI-Component-Tests-shou-e03c6-nd-remove-items-dynamically-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\test-results\ui-UI-Component-Tests-shou-e03c6-nd-remove-items-dynamically-chromium\error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|test-results\ui-UI-Component-Tests-shou-e03c6-nd-remove-items-dynamically-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|test-results\ui-UI-Component-Tests-shou-e03c6-nd-remove-items-dynamically-chromium\video.webm]]
+
+[[ATTACHMENT|test-results\ui-UI-Component-Tests-shou-e03c6-nd-remove-items-dynamically-chromium\error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="UI Component Tests › should display order items correctly" classname="ui.test.js" time="15.552">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should handle empty states" classname="ui.test.js" time="10.504">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should show proper error messages" classname="ui.test.js" time="10.502">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should show success messages" classname="ui.test.js" time="10.418">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should handle keyboard navigation" classname="ui.test.js" time="5.872">
+<failure message="ui.test.js:127:3 should handle keyboard navigation" type="FAILURE">
+<![CDATA[  [chromium] › ui.test.js:127:3 › UI Component Tests › should handle keyboard navigation ───────────
+
+    Error: expect(locator).toBeFocused() failed
+
+    Locator:  locator('#customerName')
+    Expected: focused
+    Received: <element(s) not found>
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeFocused" with timeout 5000ms
+      - waiting for locator('#customerName')
+
+
+      128 |     // Test tab navigation
+      129 |     await page.keyboard.press('Tab');
+    > 130 |     await expect(page.locator('#customerName')).toBeFocused();
+          |                                                 ^
+      131 |     
+      132 |     await page.keyboard.press('Tab');
+      133 |     await expect(page.locator('.product-select')).toBeFocused();
+        at D:\Project\aws-crud-api\tests\ui.test.js:130:49
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    ..\test-results\ui-UI-Component-Tests-should-handle-keyboard-navigation-chromium\test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    ..\test-results\ui-UI-Component-Tests-should-handle-keyboard-navigation-chromium\video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: ..\test-results\ui-UI-Component-Tests-should-handle-keyboard-navigation-chromium\error-context.md
+]]>
+</failure>
+<system-out>
+<![CDATA[
+[[ATTACHMENT|test-results\ui-UI-Component-Tests-should-handle-keyboard-navigation-chromium\test-failed-1.png]]
+
+[[ATTACHMENT|test-results\ui-UI-Component-Tests-should-handle-keyboard-navigation-chromium\video.webm]]
+
+[[ATTACHMENT|test-results\ui-UI-Component-Tests-should-handle-keyboard-navigation-chromium\error-context.md]]
+]]>
+</system-out>
+</testcase>
+<testcase name="UI Component Tests › should handle form reset after successful submission" classname="ui.test.js" time="10.408">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should display API status correctly" classname="ui.test.js" time="3.941">
+<failure message="ui.test.js:163:3 should display API status correctly" type="FAILURE">
+<![CDATA[  [chromium] › ui.test.js:163:3 › UI Component Tests › should display API status correctly ─────────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator:  locator('#apiStatus')
+    Expected: visible
+    Received: <element(s) not found>
+
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('#apiStatus')
+
+
+      164 |     // Check if API status indicator is present
+      165 |     const apiStatus = page.locator('#apiStatus');
+    > 166 |     await expect(apiStatus).toBeVisible();
+          |                             ^
+      167 |     
+      168 |     // Should show either "API Online" or "API Offline"
+      169 |     const statusText = await apiStatus.textContent();
+        at D:\Project\aws-crud-api\tests\ui.test.js:166:29
+
+    Error: browserContext.close: Target page, context or browser has been closed
+]]>
+</failure>
+</testcase>
+<testcase name="UI Component Tests › should handle confirmation dialogs" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="api.test.js" timestamp="2025-09-07T20:07:41.291Z" hostname="firefox" tests="12" failures="0" skipped="12" time="0" errors="0">
+<testcase name="AWS CRUD API Tests › should display the order management interface" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should create a new order successfully" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should create order with multiple items" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should validate required fields" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should list orders" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should get specific order" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should update order" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should delete order" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should handle API errors gracefully" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should validate order limits" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should handle invalid product selection" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should handle network errors" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="ui.test.js" timestamp="2025-09-07T20:07:41.291Z" hostname="firefox" tests="12" failures="0" skipped="12" time="0" errors="0">
+<testcase name="UI Component Tests › should have responsive design" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should display loading states" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should handle form validation" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should add and remove items dynamically" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should display order items correctly" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should handle empty states" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should show proper error messages" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should show success messages" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should handle keyboard navigation" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should handle form reset after successful submission" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should display API status correctly" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should handle confirmation dialogs" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="api.test.js" timestamp="2025-09-07T20:07:41.291Z" hostname="webkit" tests="12" failures="0" skipped="12" time="0" errors="0">
+<testcase name="AWS CRUD API Tests › should display the order management interface" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should create a new order successfully" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should create order with multiple items" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should validate required fields" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should list orders" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should get specific order" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should update order" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should delete order" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should handle API errors gracefully" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should validate order limits" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should handle invalid product selection" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should handle network errors" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="ui.test.js" timestamp="2025-09-07T20:07:41.291Z" hostname="webkit" tests="12" failures="0" skipped="12" time="0" errors="0">
+<testcase name="UI Component Tests › should have responsive design" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should display loading states" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should handle form validation" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should add and remove items dynamically" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should display order items correctly" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should handle empty states" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should show proper error messages" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should show success messages" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should handle keyboard navigation" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should handle form reset after successful submission" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should display API status correctly" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should handle confirmation dialogs" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="api.test.js" timestamp="2025-09-07T20:07:41.291Z" hostname="Mobile Chrome" tests="12" failures="0" skipped="12" time="0" errors="0">
+<testcase name="AWS CRUD API Tests › should display the order management interface" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should create a new order successfully" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should create order with multiple items" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should validate required fields" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should list orders" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should get specific order" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should update order" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should delete order" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should handle API errors gracefully" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should validate order limits" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should handle invalid product selection" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should handle network errors" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="ui.test.js" timestamp="2025-09-07T20:07:41.291Z" hostname="Mobile Chrome" tests="12" failures="0" skipped="12" time="0" errors="0">
+<testcase name="UI Component Tests › should have responsive design" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should display loading states" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should handle form validation" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should add and remove items dynamically" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should display order items correctly" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should handle empty states" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should show proper error messages" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should show success messages" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should handle keyboard navigation" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should handle form reset after successful submission" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should display API status correctly" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should handle confirmation dialogs" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="api.test.js" timestamp="2025-09-07T20:07:41.291Z" hostname="Mobile Safari" tests="12" failures="0" skipped="12" time="0" errors="0">
+<testcase name="AWS CRUD API Tests › should display the order management interface" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should create a new order successfully" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should create order with multiple items" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should validate required fields" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should list orders" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should get specific order" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should update order" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should delete order" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should handle API errors gracefully" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should validate order limits" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should handle invalid product selection" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="AWS CRUD API Tests › should handle network errors" classname="api.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+<testsuite name="ui.test.js" timestamp="2025-09-07T20:07:41.291Z" hostname="Mobile Safari" tests="12" failures="0" skipped="12" time="0" errors="0">
+<testcase name="UI Component Tests › should have responsive design" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should display loading states" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should handle form validation" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should add and remove items dynamically" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should display order items correctly" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should handle empty states" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should show proper error messages" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should show success messages" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should handle keyboard navigation" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should handle form reset after successful submission" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should display API status correctly" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+<testcase name="UI Component Tests › should handle confirmation dialogs" classname="ui.test.js" time="0">
+<skipped>
+</skipped>
+</testcase>
+</testsuite>
+</testsuites>

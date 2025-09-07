@@ -55,6 +55,7 @@ provider:
 functions:
   createOrder:
     handler: src/handlers/create.handler
+    timeout: 30
     events:
       - httpApi:
           path: /orders
@@ -62,6 +63,7 @@ functions:
 
   getOrder:
     handler: src/handlers/get.handler
+    timeout: 30
     events:
       - httpApi:
           path: /orders/{orderId}
@@ -69,6 +71,7 @@ functions:
 
   listOrders:
     handler: src/handlers/list.handler
+    timeout: 30
     events:
       - httpApi:
           path: /orders
@@ -76,6 +79,7 @@ functions:
 
   updateOrder:
     handler: src/handlers/update.handler
+    timeout: 30
     events:
       - httpApi:
           path: /orders/{orderId}
@@ -83,6 +87,7 @@ functions:
 
   deleteOrder:
     handler: src/handlers/delete.handler
+    timeout: 30
     events:
       - httpApi:
           path: /orders/{orderId}
@@ -90,6 +95,7 @@ functions:
 
   initializeProducts:
     handler: src/handlers/initializeProducts.handler
+    timeout: 30
 
 resources:
   Resources:
@@ -156,4 +162,5 @@ plugins:
 
 custom:
   serverless-offline:
-    httpPort: 4000 
+    httpPort: 8000
+    host: localhost 
