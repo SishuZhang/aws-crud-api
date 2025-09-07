@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AWS CRUD API - Order Management</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        .content {
+            padding: 30px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            padding: 25px;
+            border: 1px solid #e1e5e9;
+            border-radius: 10px;
+            background: #f8f9fa;
+        }
+
+        .section h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #34495e;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #51cf66 0%, #40c057 100%);
+        }
+
+        .btn-info {
+            background: linear-gradient(135deg, #74c0fc 0%, #339af0 100%);
+        }
+
+        .response {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .response.success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+
+        .response.error {
+            background: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+
+        .orders-list {
+            max-height: 400px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 15px;
+            background: white;
+        }
+
+        .order-item {
+            border: 1px solid #e1e5e9;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            background: #f8f9fa;
+            transition: box-shadow 0.2s;
+        }
+
+        .order-item:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .order-id {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .order-status {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .status-pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status-processing {
+            background: #cce5ff;
+            color: #004085;
+        }
+
+        .status-completed {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .order-details {
+            font-size: 14px;
+            color: #6c757d;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            color: #6c757d;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 2s linear infinite;
+            margin: 0 auto 10px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .api-status {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            border-radius: 25px;
+            color: white;
+            font-weight: bold;
+            z-index: 1000;
+        }
+
+        .api-status.online {
+            background: #28a745;
+        }
+
+        .api-status.offline {
+            background: #dc3545;
+        }
+
+        .item-input {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .item-input select,
+        .item-input input {
+            flex: 1;
+        }
+
+        .remove-item {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .add-item {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+    <div class="api-status" id="apiStatus">Checking API...</div>
+    
+    <div class="container">
+        <div class="header">
+            <h1>🛒 AWS CRUD API</h1>
+            <p>Order Management System - Test Interface</p>
+        </div>
+
+        <div class="content">
+            <!-- Create Order Section -->
+            <div class="section">
+                <h2>📝 Create New Order</h2>
+                <form id="createOrderForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="customerName">Customer Name *</label>
+                            <input type="text" id="customerName" name="customerName" required>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Items *</label>
+                        <div id="itemsContainer">
+                            <div class="item-input">
+                                <select name="productId" class="product-select">
+                                    <option value="">Select Product</option>
+                                    <option value="apple">Apple - $1.00</option>
+                                    <option value="orange">Orange - $2.00</option>
+                                    <option value="pear">Pear - $3.00</option>
+                                </select>
+                                <input type="number" name="quantity" placeholder="Quantity" min="1" value="1">
+                                <button type="button" class="remove-item" onclick="removeItem(this)">Remove</button>
+                            </div>
+                        </div>
+                        <button type="button" class="add-item" onclick="addItem()">+ Add Item</button>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="shippingAddress">Shipping Address *</label>
+                        <textarea id="shippingAddress" name="shippingAddress" rows="3" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn">Create Order</button>
+                </form>
+                <div id="createResponse" class="response" style="display: none;"></div>
+            </div>
+
+            <!-- List Orders Section -->
+            <div class="section">
+                <h2>📋 Orders List</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="limit">Limit (optional)</label>
+                        <input type="number" id="limit" name="limit" min="1" max="100" placeholder="Number of orders to fetch">
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-info" onclick="listOrders()">Refresh Orders</button>
+                    </div>
+                </div>
+                <div class="loading" id="listLoading">
+                    <div class="spinner"></div>
+                    Loading orders...
+                </div>
+                <div id="ordersList" class="orders-list"></div>
+                <div id="listResponse" class="response" style="display: none;"></div>
+            </div>
+
+            <!-- Get Order Section -->
+            <div class="section">
+                <h2>🔍 Get Specific Order</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="orderId">Order ID</label>
+                        <input type="text" id="orderId" name="orderId" placeholder="Enter order ID">
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-info" onclick="getOrder()">Get Order</button>
+                    </div>
+                </div>
+                <div id="getResponse" class="response" style="display: none;"></div>
+            </div>
+
+            <!-- Update Order Section -->
+            <div class="section">
+                <h2>✏️ Update Order</h2>
+                <form id="updateOrderForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="updateOrderId">Order ID *</label>
+                            <input type="text" id="updateOrderId" name="orderId" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="updateCustomerName">Customer Name</label>
+                            <input type="text" id="updateCustomerName" name="customerName">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="updateShippingAddress">Shipping Address</label>
+                        <textarea id="updateShippingAddress" name="shippingAddress" rows="3"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="updateStatus">Status</label>
+                        <select id="updateStatus" name="status">
+                            <option value="">Select Status</option>
+                            <option value="PENDING">Pending</option>
+                            <option value="PROCESSING">Processing</option>
+                            <option value="COMPLETED">Completed</option>
+                            <option value="CANCELLED">Cancelled</option>
+                        </select>
+                    </div>
+
+                    <button type="submit" class="btn btn-success">Update Order</button>
+                </form>
+                <div id="updateResponse" class="response" style="display: none;"></div>
+            </div>
+
+            <!-- Delete Order Section -->
+            <div class="section">
+                <h2>🗑️ Delete Order</h2>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="deleteOrderId">Order ID</label>
+                        <input type="text" id="deleteOrderId" name="orderId" placeholder="Enter order ID to delete">
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-danger" onclick="deleteOrder()">Delete Order</button>
+                    </div>
+                </div>
+                <div id="deleteResponse" class="response" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE_URL = 'http://localhost:8000';
+        let orderCounter = 0;
+
+        // Check API status
+        async function checkApiStatus() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/orders`);
+                const statusElement = document.getElementById('apiStatus');
+                if (response.ok) {
+                    statusElement.textContent = 'API Online';
+                    statusElement.className = 'api-status online';
+                } else {
+                    statusElement.textContent = 'API Error';
+                    statusElement.className = 'api-status offline';
+                }
+            } catch (error) {
+                const statusElement = document.getElementById('apiStatus');
+                statusElement.textContent = 'API Offline';
+                statusElement.className = 'api-status offline';
+            }
+        }
+
+        // Initialize products in the database
+        async function initializeProducts() {
+            try {
+                const response = await fetch(`${API_BASE_URL}/initializeProducts`, {
+                    method: 'POST'
+                });
+                if (response.ok) {
+                    console.log('Products initialized successfully');
+                }
+            } catch (error) {
+                console.log('Products initialization failed or already done');
+            }
+        }
+
+        // Add item to order form
+        function addItem() {
+            const container = document.getElementById('itemsContainer');
+            const newItem = document.createElement('div');
+            newItem.className = 'item-input';
+            newItem.innerHTML = `
+                <select name="productId" class="product-select">
+                    <option value="">Select Product</option>
+                    <option value="apple">Apple - $1.00</option>
+                    <option value="orange">Orange - $2.00</option>
+                    <option value="pear">Pear - $3.00</option>
+                </select>
+                <input type="number" name="quantity" placeholder="Quantity" min="1" value="1">
+                <button type="button" class="remove-item" onclick="removeItem(this)">Remove</button>
+            `;
+            container.appendChild(newItem);
+        }
+
+        // Remove item from order form
+        function removeItem(button) {
+            button.parentElement.remove();
+        }
+
+        // Show response
+        function showResponse(elementId, data, isError = false) {
+            const element = document.getElementById(elementId);
+            element.style.display = 'block';
+            element.className = `response ${isError ? 'error' : 'success'}`;
+            element.textContent = JSON.stringify(data, null, 2);
+        }
+
+        // Hide response
+        function hideResponse(elementId) {
+            document.getElementById(elementId).style.display = 'none';
+        }
+
+        // Create order
+        document.getElementById('createOrderForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            hideResponse('createResponse');
+
+            const formData = new FormData(e.target);
+            const items = {};
+            
+            // Collect items
+            const productSelects = document.querySelectorAll('.product-select');
+            const quantityInputs = document.querySelectorAll('input[name="quantity"]');
+            
+            for (let i = 0; i < productSelects.length; i++) {
+                const productId = productSelects[i].value;
+                const quantity = parseInt(quantityInputs[i].value);
+                
+                if (productId && quantity > 0) {
+                    items[productId] = quantity;
+                }
+            }
+
+            if (Object.keys(items).length === 0) {
+                showResponse('createResponse', { error: 'Please add at least one item' }, true);
+                return;
+            }
+
+            const orderData = {
+                customerName: formData.get('customerName'),
+                items: items,
+                shippingAddress: formData.get('shippingAddress')
+            };
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/orders`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(orderData)
+                });
+
+                const result = await response.json();
+                showResponse('createResponse', result, !response.ok);
+                
+                if (response.ok) {
+                    e.target.reset();
+                    // Reset items container to single item
+                    document.getElementById('itemsContainer').innerHTML = `
+                        <div class="item-input">
+                            <select name="productId" class="product-select">
+                                <option value="">Select Product</option>
+                                <option value="apple">Apple - $1.00</option>
+                                <option value="orange">Orange - $2.00</option>
+                                <option value="pear">Pear - $3.00</option>
+                            </select>
+                            <input type="number" name="quantity" placeholder="Quantity" min="1" value="1">
+                            <button type="button" class="remove-item" onclick="removeItem(this)">Remove</button>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                showResponse('createResponse', { error: error.message }, true);
+            }
+        });
+
+        // List orders
+        async function listOrders() {
+            hideResponse('listResponse');
+            document.getElementById('listLoading').style.display = 'block';
+            
+            const limit = document.getElementById('limit').value;
+            const url = limit ? `${API_BASE_URL}/orders?limit=${limit}` : `${API_BASE_URL}/orders`;
+
+            try {
+                const response = await fetch(url);
+                const orders = await response.json();
+                
+                document.getElementById('listLoading').style.display = 'none';
+                
+                if (response.ok) {
+                    displayOrders(orders);
+                } else {
+                    showResponse('listResponse', orders, true);
+                }
+            } catch (error) {
+                document.getElementById('listLoading').style.display = 'none';
+                showResponse('listResponse', { error: error.message }, true);
+            }
+        }
+
+        // Display orders in the UI
+        function displayOrders(orders) {
+            const container = document.getElementById('ordersList');
+            
+            if (orders.length === 0) {
+                container.innerHTML = '<p style="text-align: center; color: #6c757d; padding: 20px;">No orders found</p>';
+                return;
+            }
+
+            container.innerHTML = orders.map(order => `
+                <div class="order-item">
+                    <div class="order-header">
+                        <span class="order-id">Order: ${order.id}</span>
+                        <span class="order-status status-${order.status.toLowerCase()}">${order.status}</span>
+                    </div>
+                    <div class="order-details">
+                        <p><strong>Customer:</strong> ${order.customerName}</p>
+                        <p><strong>Total Cost:</strong> $${order.totalCost.toFixed(2)}</p>
+                        <p><strong>Items:</strong> ${Object.keys(order.items).length} item(s)</p>
+                        <p><strong>Created:</strong> ${order.createdAt.formatted}</p>
+                        <p><strong>Address:</strong> ${order.shippingAddress}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Get specific order
+        async function getOrder() {
+            hideResponse('getResponse');
+            const orderId = document.getElementById('orderId').value;
+            
+            if (!orderId) {
+                showResponse('getResponse', { error: 'Please enter an order ID' }, true);
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/orders/${orderId}`);
+                const result = await response.json();
+                showResponse('getResponse', result, !response.ok);
+            } catch (error) {
+                showResponse('getResponse', { error: error.message }, true);
+            }
+        }
+
+        // Update order
+        document.getElementById('updateOrderForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            hideResponse('updateResponse');
+
+            const formData = new FormData(e.target);
+            const orderId = formData.get('orderId');
+            
+            if (!orderId) {
+                showResponse('updateResponse', { error: 'Please enter an order ID' }, true);
+                return;
+            }
+
+            const updateData = {};
+            if (formData.get('customerName')) updateData.customerName = formData.get('customerName');
+            if (formData.get('shippingAddress')) updateData.shippingAddress = formData.get('shippingAddress');
+            if (formData.get('status')) updateData.status = formData.get('status');
+
+            if (Object.keys(updateData).length === 0) {
+                showResponse('updateResponse', { error: 'Please provide at least one field to update' }, true);
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/orders/${orderId}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(updateData)
+                });
+
+                const result = await response.json();
+                showResponse('updateResponse', result, !response.ok);
+            } catch (error) {
+                showResponse('updateResponse', { error: error.message }, true);
+            }
+        });
+
+        // Delete order
+        async function deleteOrder() {
+            hideResponse('deleteResponse');
+            const orderId = document.getElementById('deleteOrderId').value;
+            
+            if (!orderId) {
+                showResponse('deleteResponse', { error: 'Please enter an order ID' }, true);
+                return;
+            }
+
+            if (!confirm(`Are you sure you want to delete order ${orderId}?`)) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE_URL}/orders/${orderId}`, {
+                    method: 'DELETE'
+                });
+
+                const result = await response.json();
+                showResponse('deleteResponse', result, !response.ok);
+            } catch (error) {
+                showResponse('deleteResponse', { error: error.message }, true);
+            }
+        }
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', async () => {
+            await checkApiStatus();
+            await initializeProducts();
+            await listOrders();
+        });
+    </script>
+</body>
+</html>
+

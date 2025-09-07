@@ -1,0 +1,25 @@
+{
+  "timestamp": "2025-09-07T20:06:48.485Z",
+  "results": {
+    "jest": {
+      "success": true,
+      "output": "\n> aws-crud-api@1.0.0 test:coverage\n> jest --coverage\n\n------------------------|---------|----------|---------|---------|-------------------------------------------\nFile                    | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s                         \n------------------------|---------|----------|---------|---------|-------------------------------------------\nAll files               |   65.31 |    52.13 |   33.33 |   65.97 |                                           \n __tests__/integration  |     100 |      100 |     100 |     100 |                                           \n  testData.js           |     100 |      100 |     100 |     100 |                                           \n src/constants          |     100 |      100 |     100 |     100 |                                           \n  products.js           |     100 |      100 |     100 |     100 |                                           \n src/handlers           |   82.79 |    62.88 |   91.66 |   82.62 |                                           \n  create.js             |   94.91 |    80.76 |     100 |   94.73 | 21,36,127                                 \n  delete.js             |   81.25 |    66.66 |     100 |   81.25 | 13,60-61                                  \n  get.js                |     100 |    83.33 |     100 |     100 | 5                                         \n  initializeProducts.js |     100 |      100 |     100 |     100 |                                           \n  list.js               |   78.26 |       50 |     100 |   78.26 | 16-17,33,50-51                            \n  update.js             |    67.5 |    51.06 |      50 |    67.5 | 13-27,108-110,113-117,122-142,174,176,178 \n src/utils              |      12 |        0 |      10 |   12.67 |                                           \n  mockDynamoDB.js       |    5.71 |        0 |    6.89 |    6.06 | 19-140,163-192                            \n  timestamp.js          |     100 |      100 |     100 |     100 |                                           \n------------------------|---------|----------|---------|---------|-------------------------------------------\n"
+    },
+    "playwright": {
+      "success": false,
+      "error": "Command failed: npm run test:playwright\nnpm error Missing script: \"test:playwright\"\nnpm error\nnpm error To see a list of scripts, run:\nnpm error   npm run\nnpm error A complete log of this run can be found in: C:\\Users\\PC\\AppData\\Local\\npm-cache\\_logs\\2025-09-07T20_06_48_436Z-debug-0.log\n",
+      "output": ""
+    },
+    "overall": "failed"
+  },
+  "summary": {
+    "totalTests": 0,
+    "passedTests": 0,
+    "failedTests": 0,
+    "coverage": {
+      "totalLines": 297,
+      "coveredLines": 194,
+      "percentage": "65.32"
+    }
+  }
+}

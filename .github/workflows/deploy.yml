@@ -43,7 +43,14 @@ jobs:
       - name: Run tests
         run: npm run test
       - name: Validate serverless configuration
-        run: serverless package --stage ${{ github.event.inputs.stage || github.ref_name || 'dev' }}
+        run: |
+          if [ -n "${{ github.event.inputs.stage }}" ]; then
+            STAGE=${{ github.event.inputs.stage }}
+          else
+            BRANCH_NAME=${GITHUB_REF##*/}
+            STAGE=$BRANCH_NAME
+          fi
+          serverless package --stage $STAGE
 
   deploy:
     needs: validate
@@ -67,7 +74,14 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-2
       - name: Deploy to AWS
-        run: serverless deploy --stage ${{ github.event.inputs.stage || github.ref_name || 'dev' }}
+        run: |
+          if [ -n "${{ github.event.inputs.stage }}" ]; then
+            STAGE=${{ github.event.inputs.stage }}
+          else
+            BRANCH_NAME=${GITHUB_REF##*/}
+            STAGE=$BRANCH_NAME
+          fi
+          serverless deploy --stage $STAGE
 
   destroy:
     needs: validate
@@ -91,4 +105,11 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-2
       - name: Remove from AWS
-        run: serverless remove --stage ${{ github.event.inputs.stage || github.ref_name || 'dev' }} 
+        run: |
+          if [ -n "${{ github.event.inputs.stage }}" ]; then
+            STAGE=${{ github.event.inputs.stage }}
+          else
+            BRANCH_NAME=${GITHUB_REF##*/}
+            STAGE=$BRANCH_NAME
+          fi
+          serverless remove --stage $STAGE 
